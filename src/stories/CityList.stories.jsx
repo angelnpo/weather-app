@@ -1,4 +1,5 @@
 import CityList from "../components/CityList/CityList";
+import { action } from "storybook/actions";
 
 export default {
   title: "Example/CityList",
@@ -11,4 +12,6 @@ const cities = [
   { city: "Manta", country: "Ecuador" },
 ];
 
-export const CityListExample = () => <CityList cities={cities} />;
+export const CityListExample = () => (
+  <CityList cities={cities} onClickCity={action("onClickCity")} />
+);

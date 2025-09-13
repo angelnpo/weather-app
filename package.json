@@ -47,6 +47,7 @@
   "devDependencies": {
     "@storybook/addon-docs": "^9.1.2",
     "@storybook/addon-onboarding": "^9.1.2",
+    "@storybook/addon-viewport": "^9.0.8",
     "@storybook/preset-create-react-app": "^9.1.2",
     "@storybook/react-webpack5": "^9.1.2",
     "eslint-plugin-storybook": "^9.1.2",

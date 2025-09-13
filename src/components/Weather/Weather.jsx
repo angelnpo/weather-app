@@ -11,12 +11,14 @@ import {
   WiRain,
 } from "react-icons/wi";
 
+const validValues = ["cloud", "cloudy", "fog", "sunny", "rain"];
+
 const stateByName = {
   cloud: WiCloud,
   cloudy: WiCloudy,
   fog: WiFog,
   sunny: WiDaySunny,
-  rain: WiRain,
+  rain: WiRain
 };
 
 const renderState = (state) => {
@@ -39,7 +41,7 @@ const Weather = ({ temperature, state }) => {
 
 Weather.propTypes = {
   temperature: PropTypes.number.isRequired,
-  state: PropTypes.string.isRequired,
+  state: PropTypes.oneOf(validValues).isRequired,
 };
 
 export default Weather;

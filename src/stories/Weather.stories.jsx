@@ -1,4 +1,4 @@
-import Weather from "../components/Weather/Weather";
+import Weather from "../components/Weather";
 
 export default {
   title: "Example/Weather",
@@ -6,4 +6,6 @@ export default {
 };
 
 export const WeatherCloud = () => <Weather temperature={10} state={"cloud"} />;
-export const WeatherSunny = () => <Weather temperature={22} state={"sunny"} />;
+export const WeatherSunny = () => (
+  <Weather temperature={22} state={"daySunny"} />
+);

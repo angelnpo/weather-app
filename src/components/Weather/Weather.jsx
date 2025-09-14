@@ -1,36 +1,13 @@
+import { IconContext } from "react-icons";
 import PropTypes from "prop-types";
 import { Typography } from "@mui/material";
-import { IconContext } from "react-icons";
-import {
-  WiCloud,
-  WiCloudy,
-  WiDayCloudy,
-  WiDayFog,
-  WiDaySunny,
-  WiFog,
-  WiRain,
-} from "react-icons/wi";
-
-const validValues = ["cloud", "cloudy", "fog", "sunny", "rain"];
-
-const stateByName = {
-  cloud: WiCloud,
-  cloudy: WiCloudy,
-  fog: WiFog,
-  sunny: WiDaySunny,
-  rain: WiRain
-};
-
-const renderState = (state) => {
-  let Icon = stateByName[state];
-  return <Icon />;
-};
+import IconState from "../IconState";
 
 const Weather = ({ temperature, state }) => {
   return (
     <div>
       <IconContext.Provider value={{ size: "5em" }}>
-        {renderState(state)}
+        <IconState state={state} />
       </IconContext.Provider>
       <Typography variant="h3" display="inline">
         {temperature}
@@ -41,7 +18,7 @@ const Weather = ({ temperature, state }) => {
 
 Weather.propTypes = {
   temperature: PropTypes.number.isRequired,
-  state: PropTypes.oneOf(validValues).isRequired,
+  state: PropTypes.string.isRequired,
 };
 
 export default Weather;

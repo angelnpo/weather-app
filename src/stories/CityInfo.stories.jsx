@@ -1,6 +1,6 @@
 //import React from "react";
 import "typeface-roboto";
-import CityInfo from "../components/CityInfo/CityInfo";
+import CityInfo from "../components/CityInfo";
 
 export default {
   title: "Example/CityInfo",

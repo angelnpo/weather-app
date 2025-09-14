@@ -1,4 +1,4 @@
-import CityList from "../components/CityList/CityList";
+import CityList from "../components/CityList";
 import { action } from "storybook/actions";
 
 export default {

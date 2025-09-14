@@ -14,7 +14,7 @@ const renderCityAndCountry = (eventOnClickCity) => (cityAndCountry) => {
           <CityInfo city={city} country={country} />;
         </Grid>
         <Grid item size={{ xs: 12, md: 4 }}>
-          <Weather temperature={10} state={"sunny"} />
+          <Weather temperature={10} state={"daySunny"} />
         </Grid>
       </Grid>
     </li>
@@ -24,13 +24,19 @@ const renderCityAndCountry = (eventOnClickCity) => (cityAndCountry) => {
 const CityList = ({ cities, onClickCity }) => {
   return (
     <ul>
-      {cities.map((cityAndCountry) => renderCityAndCountry(onClickCity)(cityAndCountry))}
+      {cities.map((cityAndCountry) =>
+        renderCityAndCountry(onClickCity)(cityAndCountry)
+      )}
     </ul>
   );
 };
 
 CityList.propTypes = {
-  cities: PropTypes.array.isRequired,
+  //cities: PropTypes.array.isRequired,
+  cities: PropTypes.shape({
+    city: PropTypes.string.isRequired,
+    country: PropTypes.string.isRequired,
+  }).isRequired,
   onClickCity: PropTypes.func.isRequired,
 };
 

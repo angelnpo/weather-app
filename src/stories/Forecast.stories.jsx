@@ -12,6 +12,7 @@ const forecastItemList = [
   { weekDay: "Thursday", hour: 17, state: "fog", temperature: 18 },
   { weekDay: "Friday", hour: 6, state: "rain", temperature: 17 },
 ];
+
 export const ForecastExample = () => (
   <Forecast forecastItemList={forecastItemList} />
 );

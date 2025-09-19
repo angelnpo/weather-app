@@ -9,18 +9,18 @@ import IconState from "../IconState";
 const ForecastItem = ({ weekDay, hour, state, temperature }) => {
   return (
     <Grid container direction="column" justify="center" alignItems="center">
-      <Grid item>
+      <Grid>
         <Typography>{weekDay}</Typography>
       </Grid>
-      <Grid item>
+      <Grid>
         <Typography>{hour}</Typography>
       </Grid>
-      <Grid item>
+      <Grid>
         <IconContext.Provider value={{ size: "5em" }}>
           <IconState state={state}></IconState>
         </IconContext.Provider>
       </Grid>
-      <Grid item>
+      <Grid>
         <Typography>{temperature}ºC</Typography>
       </Grid>
     </Grid>

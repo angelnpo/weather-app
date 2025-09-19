@@ -6,7 +6,7 @@ test("CityListRender", async () => {
   const cities = [{ city: "City", country: "Country" }];
   const { findAllByRole } = render(<CityList cities={cities} />);
 
-  const items = await findAllByRole("listitem");
+  const items = await findAllByRole("button");
 
   //assert
   expect(items).toHaveLength(1);
@@ -20,7 +20,7 @@ test("CityList click on item", async () => {
     <CityList cities={cities} onClickCity={fnClickOnItem} />
   );
 
-  const items = await findAllByRole("listitem");
+  const items = await findAllByRole("button");
 
   //assert
   fireEvent.click(items[0]);

@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 const WeatherDetails = ({ humidity, wind }) => {
   return (
-    <>
+    <Grid container>
       <Typography>Humidity: {humidity}%</Typography>{" "}
       <Typography>Wind: {wind}km/h</Typography>
-    </>
+    </Grid>
   );
 };
 

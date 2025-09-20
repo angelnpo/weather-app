@@ -1,7 +1,7 @@
 import Forecast from "../components/Forecast";
 
 export default {
-  title: "Example/Forecast",
+  title: "Components/Forecast",
   component: Forecast,
 };
 

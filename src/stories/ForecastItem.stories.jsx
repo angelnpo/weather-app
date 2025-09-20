@@ -1,11 +1,11 @@
 import ForecastItem from "../components/ForecastItem";
 
 export default {
-  title: "Example/ForecastItem",
+  title: "Components/ForecastItem",
   component: ForecastItem,
 };
 
-export const sunnyMonday = () => (
+export const SunnyMonday = () => (
   <ForecastItem
     weekDay={"Monday"}
     hour={10}

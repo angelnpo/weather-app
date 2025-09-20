@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import Paper from "@mui/material/Paper";
 import CityList from "../components/CityList";
 
 const MainPage = (props) => {
@@ -17,10 +18,9 @@ const MainPage = (props) => {
   };
 
   return (
-    <div>
-      <h2>List of cities</h2>
+    <Paper elevation={3}>
       <CityList cities={cities} onClickCity={handleClick} />
-    </div>
+    </Paper>
   );
 };
 

@@ -2,7 +2,7 @@ import CityList from "../components/CityList";
 import { action } from "storybook/actions";
 
 export default {
-  title: "Example/CityList",
+  title: "Components/CityList",
   component: CityList,
 };
 

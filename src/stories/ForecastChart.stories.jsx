@@ -1,7 +1,7 @@
 import ForecastChart from "../components/ForecastChart";
 
 export default {
-  title: "Example/ForecastChart",
+  title: "Components/ForecastChart",
   component: ForecastChart,
 };
 

@@ -1,7 +1,7 @@
 import WeatherDetails from "../components/WeatherDetails";
 
 export default {
-  title: "Example/WeatherDetails",
+  title: "Components/WeatherDetails",
   component: WeatherDetails,
 };
 

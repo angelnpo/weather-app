@@ -5,7 +5,7 @@ import IconState from "../IconState";
 
 const Weather = ({ temperature, state }) => {
   return (
-    <Grid container alignItems="center">
+    <Grid container alignItems="center" justifyContent="center">
       <IconContext.Provider value={{ size: "6em" }}>
         <IconState state={state} />
       </IconContext.Provider>

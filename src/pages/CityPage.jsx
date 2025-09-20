@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
+
 import CityInfo from "../components/CityInfo";
 import Weather from "../components/Weather";
 import WeatherDetails from "../components/WeatherDetails";
@@ -28,29 +29,29 @@ const CityPage = (props) => {
   const forecastItemList = forecastItemListExample;
 
   return (
-    <Grid
-      container
-      justifyContent="space-around"
-      direction="column"
-      spacing={2}
-    >
-      <Grid container size={12} justifyContent="center" alignItems="flex-end">
-        <CityInfo city="Santo Domingo" country="Ecuador" />
-      </Grid>
+      <Grid
+        container
+        justifyContent="space-around"
+        direction="column"
+        spacing={2}
+      >
+        <Grid container size={12} justifyContent="center" alignItems="flex-end">
+          <CityInfo city="Santo Domingo" country="Ecuador" />
+        </Grid>
 
-      <Grid direction={"column"} container size={12} alignItems="center">
-        <Weather temperature={1} state={"daySunny"} />
-        <WeatherDetails humidity={80} wind={5} />
-      </Grid>
+        <Grid direction={"column"} container size={12} alignItems="center">
+          <Weather temperature={1} state={"daySunny"} />
+          <WeatherDetails humidity={80} wind={5} />
+        </Grid>
 
-      <Grid>
-        <ForecastChart data={data} />
-      </Grid>
+        <Grid>
+          <ForecastChart data={data} />
+        </Grid>
 
-      <Grid>
-        <Forecast forecastItemList={forecastItemList} />
+        <Grid>
+          <Forecast forecastItemList={forecastItemList} />
+        </Grid>
       </Grid>
-    </Grid>
   );
 };
 

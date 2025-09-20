@@ -1,7 +1,7 @@
 import Weather from "../components/Weather";
 
 export default {
-  title: "Example/Weather",
+  title: "Components/Weather",
   component: Weather,
 };
 

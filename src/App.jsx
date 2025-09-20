@@ -1,25 +1,34 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import WelcomePage from "./pages/WelcomePage";
 import MainPage from "./pages/MainPage";
 import CityPage from "./pages/CityPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import AppFrame from "./components/AppFrame";
+
+const AppLayout = ({ children }) => {
+  const location = useLocation();
+  
+  // Don't show AppFrame on the welcome page
+  if (location.pathname === '/') {
+    return children;
+  }
+  
+  return <AppFrame>{children}</AppFrame>;
+};
 
 const App = () => {
   return (
-    <Grid container justifyContent="center" direction="row">
-      <Grid size={{ xs: 12, sm: 11, md: 10, lg: 8 }}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<WelcomePage />} />
-            <Route path="/main" element={<MainPage />} />
-            <Route path="/city" element={<CityPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Router>
-      </Grid>
-    </Grid>
+    <Router>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/city" element={<CityPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </AppLayout>
+    </Router>
   );
 };
 

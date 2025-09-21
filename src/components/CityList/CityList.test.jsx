@@ -1,32 +1,51 @@
-import { render, fireEvent } from "@testing-library/react";
-
+import { render, fireEvent, screen } from "@testing-library/react";
 import CityList from "./CityList";
+import axios from "axios";
 
-test("CityListRender", async () => {
-  const fnClickOnItem = jest.fn();
-  const cities = [{ city: "City", country: "Country", countryCode: "EC" }];
+// Mock axios
+jest.mock("axios");
 
-  const { findAllByRole } = render(
-    <CityList cities={cities} onClickCity={fnClickOnItem} />
-  );
+describe("CityList", () => {
+  beforeEach(() => {
+    // Clear all mocks before each test
+    jest.clearAllMocks();
 
-  const items = await findAllByRole("button");
+    // Setup axios mock
+    axios.get.mockResolvedValue({
+      data: {
+        main: { temp: 280.32 },
+        weather: [{ main: "Clear" }],
+      },
+    });
+  });
 
-  //assert
-  expect(items).toHaveLength(1);
-});
+  test("renders city list", async () => {
+    const fnClickOnItem = jest.fn();
+    const cities = [{ city: "City", country: "Country", countryCode: "EC" }];
 
-test("CityList click on item", async () => {
-  const fnClickOnItem = jest.fn();
+    render(<CityList cities={cities} onClickCity={fnClickOnItem} />);
 
-  const cities = [{ city: "City", country: "Country", countryCode: "EC" }];
-  const { findAllByRole } = render(
-    <CityList cities={cities} onClickCity={fnClickOnItem} />
-  );
+    // Wait for the component to finish loading
+    const items = await screen.findAllByRole("button");
 
-  const items = await findAllByRole("button");
+    // Assert
+    expect(items).toHaveLength(1);
+    expect(axios.get).toHaveBeenCalledTimes(1);
+  });
 
-  //assert
-  fireEvent.click(items[0]);
-  expect(fnClickOnItem).toHaveBeenCalledTimes(1);
+  test("calls onClickCity when a city is clicked", async () => {
+    const fnClickOnItem = jest.fn();
+    const cities = [{ city: "City", country: "Country", countryCode: "EC" }];
+
+    render(<CityList cities={cities} onClickCity={fnClickOnItem} />);
+
+    // Wait for the component to finish loading
+    const item = await screen.findByRole("button");
+
+    // Act
+    fireEvent.click(item);
+
+    // Assert
+    expect(fnClickOnItem).toHaveBeenCalledTimes(1);
+  });
 });

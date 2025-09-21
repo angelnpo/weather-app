@@ -6,10 +6,10 @@ export default {
 };
 
 const forecastItemList = [
-  { weekDay: "Monday", hour: 12, state: "daySunny", temperature: 17 },
-  { weekDay: "Tuesday", hour: 14, state: "cloud", temperature: 18 },
-  { weekDay: "Wednesday", hour: 18, state: "cloudy", temperature: 19 },
-  { weekDay: "Thursday", hour: 17, state: "fog", temperature: 18 },
+  { weekDay: "Monday", hour: 12, state: "clear", temperature: 17 },
+  { weekDay: "Tuesday", hour: 14, state: "clouds", temperature: 18 },
+  { weekDay: "Wednesday", hour: 18, state: "clouds", temperature: 19 },
+  { weekDay: "Thursday", hour: 17, state: "drizzle", temperature: 18 },
   { weekDay: "Friday", hour: 6, state: "rain", temperature: 17 },
 ];
 

@@ -1,5 +1,5 @@
-import CityList from "../components/CityList";
 import { action } from "storybook/actions";
+import CityList from "../components/CityList";
 
 export default {
   title: "Components/CityList",
@@ -7,9 +7,9 @@ export default {
 };
 
 const cities = [
-  { city: "Santo Domingo", country: "Ecuador" },
-  { city: "Quito", country: "Ecuador" },
-  { city: "Manta", country: "Ecuador" },
+  { city: "Santo Domingo", country: "Ecuador", countryCode: "EC" },
+  { city: "Quito", country: "Ecuador", countryCode: "EC" },
+  { city: "Manta", country: "Ecuador", countryCode: "EC" },
 ];
 
 export const CityListExample = () => (

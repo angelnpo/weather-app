@@ -10,9 +10,10 @@ const MainPage = (props) => {
   const navigate = useNavigate();
 
   const cities = [
-    { city: "Santo Domingo", country: "Ecuador" },
-    { city: "Quito", country: "Ecuador" },
-    { city: "Manta", country: "Ecuador" },
+    { city: "Santo Domingo", country: "Ecuador", countryCode: "EC" },
+    { city: "Quito", country: "Ecuador", countryCode: "EC" },
+    { city: "Manta", country: "Ecuador", countryCode: "EC" },
+    { city: "Bogota", country: "Colombia", countryCode: "CO" },
   ];
 
   const handleClick = () => {

@@ -18,10 +18,10 @@ const dataExample = [
 ];
 
 const forecastItemListExample = [
-  { weekDay: "Monday", hour: 12, state: "daySunny", temperature: 17 },
-  { weekDay: "Tuesday", hour: 14, state: "cloud", temperature: 18 },
-  { weekDay: "Wednesday", hour: 18, state: "cloudy", temperature: 19 },
-  { weekDay: "Thursday", hour: 17, state: "fog", temperature: 18 },
+  { weekDay: "Monday", hour: 12, state: "clear", temperature: 17 },
+  { weekDay: "Tuesday", hour: 14, state: "clouds", temperature: 18 },
+  { weekDay: "Wednesday", hour: 18, state: "clouds", temperature: 19 },
+  { weekDay: "Thursday", hour: 17, state: "drizzle", temperature: 18 },
   { weekDay: "Friday", hour: 6, state: "rain", temperature: 17 },
 ];
 
@@ -38,11 +38,11 @@ const CityPage = (props) => {
         spacing={2}
       >
         <Grid container size={12} justifyContent="center" alignItems="flex-end">
-          <CityInfo city="Santo Domingo" country="Ecuador" />
+          <CityInfo city="Santo Domingo" country="Ecuador" countryCode="EC" />
         </Grid>
 
         <Grid direction={"column"} container size={12} alignItems="center">
-          <Weather temperature={1} state={"daySunny"} />
+          <Weather temperature={1} state={"clear"} />
           <WeatherDetails humidity={80} wind={5} />
         </Grid>
 

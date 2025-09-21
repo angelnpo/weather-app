@@ -3,8 +3,12 @@ import { render, fireEvent } from "@testing-library/react";
 import CityList from "./CityList";
 
 test("CityListRender", async () => {
-  const cities = [{ city: "City", country: "Country" }];
-  const { findAllByRole } = render(<CityList cities={cities} />);
+  const fnClickOnItem = jest.fn();
+  const cities = [{ city: "City", country: "Country", countryCode: "EC" }];
+
+  const { findAllByRole } = render(
+    <CityList cities={cities} onClickCity={fnClickOnItem} />
+  );
 
   const items = await findAllByRole("button");
 
@@ -15,7 +19,7 @@ test("CityListRender", async () => {
 test("CityList click on item", async () => {
   const fnClickOnItem = jest.fn();
 
-  const cities = [{ city: "City", country: "Country" }];
+  const cities = [{ city: "City", country: "Country", countryCode: "EC" }];
   const { findAllByRole } = render(
     <CityList cities={cities} onClickCity={fnClickOnItem} />
   );

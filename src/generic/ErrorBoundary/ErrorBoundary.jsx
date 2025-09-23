@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@mui/material";
 
 class ErrorBoundary extends React.Component {
   /**
@@ -8,63 +7,34 @@ class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      enabled: false,
+      hasError: false,
     };
-
-    this.changeEnabled = this.changeEnabled.bind(this);
   }
 
   /**
-   * override render method.
+   * Override getDerivedStateFromError method.
+   * @param {*} error
+   * @returns
+   */
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  /**
+   * Override render method.
    * @returns
    */
   render() {
-    return (
-      <div>
-        <Button variant="contained" onClick={this.changeEnabled}>
-          Change state
-        </Button>
-        <h1>{this.isEnabled()}</h1>
-      </div>
-    );
-  }
-
-  // see useLayoutEffect
-  /**
-   * Override componentDidMount method.
-   */
-  componentDidMount() {
-    console.log("Mount component...");
+    return this.state.hasError ? <h1>Has error</h1> : this.props.children;
   }
 
   /**
-   * Override componentDidUpdate method.
-   * @param {Ov} prevProps
-   * @param {*} prevState
+   * Override componentDidCatch method.
+   * @param {*} error
+   * @param {*} errorInfo
    */
-  componentDidUpdate(prevProps, prevState) {
-    console.log("Update component...");
-  }
-
-  /**
-   * Override componentWillUnmount method.
-   */
-  componentWillUnmount() {
-    console.log("Unmount component...");
-  }
-
-  /**
-   * Check if the error boundary is enabled.
-   * @returns {boolean}
-   */
-  isEnabled() {
-    return this.state.enabled ? "Enabled" : "Disabled";
-  }
-
-  changeEnabled() {
-    this.setState({
-      enabled: !this.state.enabled,
-    });
+  componentDidCatch(error, errorInfo) {
+    console.log(error, errorInfo);
   }
 }
 

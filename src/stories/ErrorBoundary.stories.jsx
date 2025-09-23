@@ -5,6 +5,17 @@ export default {
   component: ErrorBoundary,
 };
 
-export const ErrorBoundaryExample = () => (
-  <ErrorBoundary message="Something went wrong" />
+const ChildrenWithoutError = () => <h1>Without error</h1>;
+export const ErrorBoundaryWithoutError = () => (
+  <ErrorBoundary>
+    <ChildrenWithoutError />
+  </ErrorBoundary>
+);
+
+const prop = undefined;
+const ChildrenWithError = () => <h1>Without error {prop.message}</h1>;
+export const ErrorBoundaryWithError = () => (
+  <ErrorBoundary>
+    <ChildrenWithError />
+  </ErrorBoundary>
 );

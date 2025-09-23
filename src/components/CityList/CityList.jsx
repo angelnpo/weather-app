@@ -19,7 +19,7 @@ const renderCityAndCountry =
     return (
       <ListItemButton
         key={getCityCode(city, countryCode)}
-        onClick={eventOnClickCity}
+        onClick={() => eventOnClickCity(city, countryCode)}
       >
         <Grid
           container
@@ -90,6 +90,7 @@ const CityList = ({ cities, onClickCity }) => {
           {error}
         </Alert>
       )}
+
       <List>
         {cities.map((cityAndCountry) =>
           renderCityAndCountry(onClickCity)(

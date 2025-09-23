@@ -16,8 +16,8 @@ const MainPage = (props) => {
     { city: "Bogota", country: "Colombia", countryCode: "CO" },
   ];
 
-  const handleClick = () => {
-    navigate("/city");
+  const handleClick = (city, countryCode) => {
+    navigate(`/city/${countryCode}/${city}`);
   };
 
   return (

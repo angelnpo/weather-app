@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Alert from "@mui/material/Alert";
-import axios from "axios";
-import convert from "convert-units";
+import useCityList from "../../hooks/useCityList";
 
+import { getCityCode } from "../../utils/utils";
 import CityInfo from "../CityInfo";
 import Weather from "../Weather";
-
-const getCityCode = (city, countryCode) => `${city}-${countryCode}`;
 
 const renderCityAndCountry =
   (eventOnClickCity) => (cityAndCountry, weather) => {
@@ -42,46 +40,7 @@ const renderCityAndCountry =
   };
 
 const CityList = ({ cities, onClickCity }) => {
-  const [weathers, setWeathers] = useState({});
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const findWeatherByCity = async (city, countryCode) => {
-      const APIKEY = "fb8b7db411601542d5a91533994353fe";
-      try {
-        const res = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&appid=${APIKEY}`
-        );
-
-        const { data } = res;
-        const temperature = convert(data.main.temp)
-          .from("K")
-          .to("C")
-          .toFixed(0);
-        const state = data.weather[0].main.toLowerCase();
-
-        setWeathers((weathers) => {
-          return {
-            ...weathers,
-            [getCityCode(city, countryCode)]: { temperature, state },
-          };
-        });
-      } catch (err) {
-        setError("An error has occurred. Please contact the administrator.");
-        if (err.response) {
-          console.log("Internal server error:", err.response);
-        } else if (err.request) {
-          console.log("Internal server error:", err.request);
-        } else {
-          console.log("Unknown error:", err);
-        }
-      }
-    };
-
-    cities.forEach(({ city, countryCode }) =>
-      findWeatherByCity(city, countryCode)
-    );
-  }, [cities]);
+  const { weathers, error, setError } = useCityList(cities);
 
   return (
     <div>

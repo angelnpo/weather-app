@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
-import Grid from "@mui/material/Grid";
 import PropTypes from "prop-types";
+import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
+import Alert from "@mui/material/Alert";
 import axios from "axios";
+import convert from "convert-units";
 
 import CityInfo from "../CityInfo";
 import Weather from "../Weather";
 
+const getCityCode = (city, countryCode) => `${city}-${countryCode}`;
+
 const renderCityAndCountry =
   (eventOnClickCity) => (cityAndCountry, weather) => {
-    const { city, country } = cityAndCountry;
+    const { city, country, countryCode } = cityAndCountry;
 
     return (
-      <ListItemButton key={city} onClick={eventOnClickCity}>
+      <ListItemButton
+        key={getCityCode(city, countryCode)}
+        onClick={eventOnClickCity}
+      >
         <Grid
           container
           justifyContent="center"
@@ -24,14 +31,10 @@ const renderCityAndCountry =
             <CityInfo city={city} country={country} />
           </Grid>
           <Grid size={{ xs: 12, md: 3 }}>
-            {weather ? (
-              <Weather
-                temperature={weather?.temperature}
-                state={weather?.state}
-              />
-            ) : (
-              "No data"
-            )}
+            <Weather
+              temperature={weather?.temperature}
+              state={weather?.state}
+            />
           </Grid>
         </Grid>
       </ListItemButton>
@@ -40,44 +43,64 @@ const renderCityAndCountry =
 
 const CityList = ({ cities, onClickCity }) => {
   const [weathers, setWeathers] = useState({});
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const APIKEY = "fb8b7db411601542d5a91533994353fe";
-
-    const findWeatherByCity = (city, country, countryCode) => {
-      axios
-        .get(
+    const findWeatherByCity = async (city, countryCode) => {
+      const APIKEY = "fb8b7db411601542d5a91533994353fe";
+      try {
+        const res = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&appid=${APIKEY}`
-        )
-        .then((res) => {
-          const { data } = res;
-          const temperature = data.main.temp;
-          const state = data.weather[0].main.toLowerCase();
+        );
 
-          setWeathers((weathers) => {
-            return {
-              ...weathers,
-              [`${city}-${country}`]: { temperature, state },
-            };
-          });
+        const { data } = res;
+        const temperature = convert(data.main.temp)
+          .from("K")
+          .to("C")
+          .toFixed(0);
+        const state = data.weather[0].main.toLowerCase();
+
+        setWeathers((weathers) => {
+          return {
+            ...weathers,
+            [getCityCode(city, countryCode)]: { temperature, state },
+          };
         });
-      //.catch((err) => tempArray.push(err));
-    }; //);
+      } catch (err) {
+        setError("An error has occurred. Please contact the administrator.");
+        if (err.response) {
+          console.log("Internal server error:", err.response);
+        } else if (err.request) {
+          console.log("Internal server error:", err.request);
+        } else {
+          console.log("Unknown error:", err);
+        }
+      }
+    };
 
-    cities.forEach(({ city, country, countryCode }) =>
-      findWeatherByCity(city, country, countryCode)
+    cities.forEach(({ city, countryCode }) =>
+      findWeatherByCity(city, countryCode)
     );
   }, [cities]);
 
   return (
-    <List>
-      {cities.map((cityAndCountry) =>
-        renderCityAndCountry(onClickCity)(
-          cityAndCountry,
-          weathers[`${cityAndCountry.city}-${cityAndCountry.country}`]
-        )
+    <div>
+      {error && (
+        <Alert severity="error" onClose={() => setError(null)}>
+          {error}
+        </Alert>
       )}
-    </List>
+      <List>
+        {cities.map((cityAndCountry) =>
+          renderCityAndCountry(onClickCity)(
+            cityAndCountry,
+            weathers[
+              getCityCode(cityAndCountry.city, cityAndCountry.countryCode)
+            ]
+          )
+        )}
+      </List>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -16,7 +16,10 @@ import { getCountryByCode } from "../utils/serviceCities";
 
 const CityPage = (props) => {
   const { city, countryCode, chartData, forecastItemList } = useCityPage();
-  const { weathers } = useCityList([{ city, countryCode }]);
+
+  const cities = useMemo(() => [{ city, countryCode }], [city, countryCode]);
+  const { weathers } = useCityList(cities);
+
   const weather = weathers[getCityCode(city, countryCode)];
 
   const country = getCountryByCode(countryCode);

@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { urlWeather } from "../utils/urls";
-import { getCityCode } from "../utils/utils";
-import { toCelsius } from "../utils/utils";
+import getAllWeather from "../utils/transform/getAllWeather";
 
 const useCityList = (cities) => {
   const [weathers, setWeathers] = useState({});
@@ -14,16 +13,8 @@ const useCityList = (cities) => {
       try {
         const res = await axios.get(urlWeather(city, countryCode));
 
-        const { data } = res;
-        const temperature = toCelsius(data.main.temp);
-        const state = data.weather[0].main.toLowerCase();
-
-        setWeathers((weathers) => {
-          return {
-            ...weathers,
-            [getCityCode(city, countryCode)]: { temperature, state },
-          };
-        });
+        const weather = getAllWeather(res, city, countryCode);
+        setWeathers((weathers) => ({ ...weathers, ...weather }));
       } catch (err) {
         setError("An error has occurred. Please contact the administrator.");
         if (err.response) {

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
@@ -12,26 +12,46 @@ const MainPage = (props) => {
   const [weathers, setWeathers] = useState({});
   const navigate = useNavigate();
 
+  const cities = getCities();
+
   const handleClick = (city, countryCode) => {
     const weather = weathers[getCityCode(city, countryCode)];
     navigate(`/city/${countryCode}/${city}`, { state: { weather: weather } });
   };
 
-  const cities = getCities();
+  // const handleSetWeathers = useMemo(
+  //   () => (weather) => setWeathers((weathers) => ({ ...weathers, ...weather })),
+  //   [setWeathers]
+  // );
 
-  const handleSetWeathers = useMemo(
-    () => (weather) => setWeathers((weathers) => ({ ...weathers, ...weather })),
+  const handleSetWeathers = useCallback(
+    (weather) => {
+      setWeathers((weathers) => {
+        const newWeathers = { ...weathers, ...weather };
+        return newWeathers;
+      });
+    },
     [setWeathers]
   );
+
+  const actions = useMemo(() => {
+    return {
+      handleSetWeathers: handleSetWeathers,
+    };
+  }, [handleSetWeathers]);
+
+  const data = useMemo(() => {
+    return { weathers: weathers };
+  }, [weathers]);
 
   return (
     <AppFrame>
       <Paper elevation={3}>
         <CityList
           cities={cities}
-          weathers={weathers}
+          data={data}
           onClickCity={handleClick}
-          handleSetWeathers={handleSetWeathers}
+          actions={actions}
         />
       </Paper>
     </AppFrame>

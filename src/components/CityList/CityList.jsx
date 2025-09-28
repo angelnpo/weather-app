@@ -39,8 +39,10 @@ const renderCityAndCountry =
     );
   };
 
-const CityList = ({ cities, onClickCity, handleSetWeathers, weathers }) => {
-  const { error, setError } = useCityList(cities, handleSetWeathers);
+const CityList = ({ cities, onClickCity, actions, data }) => {
+  const { weathers } = data;
+  const { handleSetWeathers } = actions;
+  const { error, setError } = useCityList(cities, handleSetWeathers, weathers);
 
   return (
     <div>
@@ -74,7 +76,7 @@ CityList.propTypes = {
   ).isRequired,
   weathers: PropTypes.array.isRequired,
   onClickCity: PropTypes.func.isRequired,
-  handleSetWeathers: PropTypes.func,
+  actions: PropTypes.object.isRequired,
 };
 
 export default CityList;

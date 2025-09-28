@@ -3,13 +3,16 @@ import axios from "axios";
 
 import { urlWeather } from "../utils/urls";
 import getAllWeather from "../utils/transform/getAllWeather";
+import { getCityCode } from "../utils/utils";
 
-const useCityList = (cities, handleSetWeathers) => {
+const useCityList = (cities, handleSetWeathers, weathers) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const findWeatherByCity = async (city, countryCode) => {
       try {
+        handleSetWeathers({ [getCityCode(city, countryCode)]: {} });
+
         const res = await axios.get(urlWeather(city, countryCode));
 
         const weather = getAllWeather(res, city, countryCode);
@@ -26,10 +29,12 @@ const useCityList = (cities, handleSetWeathers) => {
       }
     };
 
-    cities.forEach(({ city, countryCode }) =>
-      findWeatherByCity(city, countryCode)
-    );
-  }, [cities, handleSetWeathers]);
+    cities.forEach(({ city, countryCode }) => {
+      if (!weathers[getCityCode(city, countryCode)]) {
+        findWeatherByCity(city, countryCode);
+      }
+    });
+  }, [cities, handleSetWeathers, weathers]);
 
   return { error, setError };
 };

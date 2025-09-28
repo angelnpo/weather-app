@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
@@ -15,8 +15,6 @@ import { getCountryByCode } from "../utils/serviceCities";
 
 const CityPage = (props) => {
   const { city, countryCode, chartData, forecastItemList } = useCityPage();
-
-  const cities = useMemo(() => [{ city, countryCode }], [city, countryCode]);
 
   const location = useLocation();
   const weather = location.state?.weather || {};

@@ -4,8 +4,7 @@ import axios from "axios";
 import { urlWeather } from "../utils/urls";
 import getAllWeather from "../utils/transform/getAllWeather";
 
-const useCityList = (cities) => {
-  const [weathers, setWeathers] = useState({});
+const useCityList = (cities, handleSetWeathers) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -14,7 +13,7 @@ const useCityList = (cities) => {
         const res = await axios.get(urlWeather(city, countryCode));
 
         const weather = getAllWeather(res, city, countryCode);
-        setWeathers((weathers) => ({ ...weathers, ...weather }));
+        handleSetWeathers(weather);
       } catch (err) {
         setError("An error has occurred. Please contact the administrator.");
         if (err.response) {
@@ -30,9 +29,9 @@ const useCityList = (cities) => {
     cities.forEach(({ city, countryCode }) =>
       findWeatherByCity(city, countryCode)
     );
-  }, [cities]);
+  }, [cities, handleSetWeathers]);
 
-  return { weathers, error, setError };
+  return { error, setError };
 };
 
 export default useCityList;

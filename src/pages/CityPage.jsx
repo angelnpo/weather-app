@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -10,17 +11,15 @@ import ForecastChart from "../components/ForecastChart";
 import Forecast from "../components/Forecast";
 import AppFrame from "../components/AppFrame";
 import useCityPage from "../hooks/useCityPage";
-import useCityList from "../hooks/useCityList";
-import { getCityCode } from "../utils/utils";
 import { getCountryByCode } from "../utils/serviceCities";
 
 const CityPage = (props) => {
   const { city, countryCode, chartData, forecastItemList } = useCityPage();
 
   const cities = useMemo(() => [{ city, countryCode }], [city, countryCode]);
-  const { weathers } = useCityList(cities);
 
-  const weather = weathers[getCityCode(city, countryCode)];
+  const location = useLocation();
+  const weather = location.state?.weather || {};
 
   const country = getCountryByCode(countryCode);
   const temperature = weather?.temperature;
